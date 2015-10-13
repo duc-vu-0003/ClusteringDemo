@@ -1,0 +1,34 @@
+Exercise 1:
+10 clusters:
+[7 7 7 ..., 8 5 5]
+Silhouette: 0.459785656666
+
+50 clusters:
+[ 8  8  8 ..., 46 35 35]
+Silhouette: 0.56728106591
+
+100 clusters:
+[59 59 59 ..., 83 65 13]
+Silhouette: 0.52954382126
+
+Exercise 2:
+Kmeans:
+[ 4  4  4 ..., 12 12 12]
+Silhouette: 0.711278614093
+
+Hierarchical:
+[12 12 12 ...,  2  2  2]
+Silhouette: 0.708545083931
+
+Exercise 3:
+Kmeans:
+[11 11 11 ...,  8  8  8]
+Silhouette: 0.966338165265
+Precision: 1.0
+Recall: 1.0
+
+Hierarchical:
+[ 8  8  8 ..., 10 10 10]
+Silhouette: 0.966338165265
+Precision: 1.0
+Recall: 1.0
