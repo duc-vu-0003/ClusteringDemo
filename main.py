@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import clustering
 import argparse
 import numpy as np
 import numpy.random as npr
@@ -45,6 +44,7 @@ def main():
             test3(False)
 
 def test1():
+    n_clusters = 10
     data = []
     with open(data1,'rb') as csvfile:
         for line in csvfile:
@@ -66,15 +66,15 @@ def test1():
 
     # km = KMeans(10).fit(data)
 
-    clusterer = KMeans(n_clusters=10)
+    clusterer = KMeans(n_clusters)
     cluster_labels = clusterer.fit_predict(data)
 
     print cluster_labels
 
     # print km.labels_
     # print km.cluster_centers_
-    showChartKmeans(clusterer, False, data, 10)
     print silhouette_score(data, cluster_labels, sample_size=5000, metric='euclidean')
+    showChartKmeans(clusterer, False, data, n_clusters)
 
 def test2(isKmeans):
     n_clusters = 15
