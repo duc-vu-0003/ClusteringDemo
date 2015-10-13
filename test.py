@@ -9,6 +9,7 @@ from sklearn.cluster import KMeans
 from matplotlib import pyplot
 from sklearn.metrics.cluster.unsupervised import silhouette_score
 from sklearn.cluster import AgglomerativeClustering
+from sklearn.metrics import precision_recall_fscore_support
 
 data = 'data'
 data1 = 'data/cluster1.csv'
@@ -21,9 +22,11 @@ def main():
     while int(oper) != 0:
         print('**************************************')
         print('Choose one of the following: ')
-        print('1 - Exercise 1')
-        print('2 - Exercise 2')
-        print('3 - Exercise 3')
+        print('1 - Exercise 1 - Kmeans')
+        print('2 - Exercise 2 - Kmeans')
+        print('3 - Exercise 2 - Hierarchical')
+        print('4 - Exercise 3 - Kmeans')
+        print('5 - Exercise 3 - Hierarchical')
         print('0 - Exit')
         print('**************************************')
         oper = int(input("Enter your options: "))
@@ -33,9 +36,13 @@ def main():
         elif oper == 1:
             test1()
         elif oper == 2:
-            test2()
+            test2(True)
         elif oper == 3:
-            test3()
+            test2(False)
+        elif oper == 4:
+            test3(True)
+        elif oper == 5:
+            test3(False)
 
 def test1():
     data = []
@@ -69,7 +76,7 @@ def test1():
     showChartKmeans(clusterer, False, data, 10)
     print silhouette_score(data, cluster_labels, sample_size=5000, metric='euclidean')
 
-def test2():
+def test2(isKmeans):
     n_clusters = 15
     data = []
     with open(data2,'rb') as csvfile:
@@ -90,22 +97,21 @@ def test2():
     #convert to numpy array
     data = np.array(data)
 
-    # km = KMeans(15).fit(data)
+    if isKmeans == True:
+        clusterer = KMeans(n_clusters)
+        cluster_labels = clusterer.fit_predict(data)
 
-    # clusterer = KMeans(n_clusters)
-    # cluster_labels = clusterer.fit_predict(data)
-    #
-    # print cluster_labels
-    # print silhouette_score(data, cluster_labels, metric='euclidean')
-    # showChartKmeans(clusterer, False, data, n_clusters)
+        print cluster_labels
+        print silhouette_score(data, cluster_labels, metric='euclidean')
+        showChartKmeans(clusterer, False, data, n_clusters)
+    else:
+        ward = AgglomerativeClustering(n_clusters, affinity='euclidean', linkage='ward')
+        ward.fit(data)
+        print ward.labels_
+        print silhouette_score(data, ward.labels_, metric='euclidean')
+        showChartHierarchical(ward, False, data, n_clusters)
 
-    ward = AgglomerativeClustering(n_clusters, affinity='euclidean', linkage='ward')
-    ward.fit(data)
-
-    print silhouette_score(data, ward.labels_, metric='euclidean')
-    showChartHierarchical(ward, False, data, n_clusters)
-
-def test3():
+def test3(isKmeans):
     n_clusters = 16
     data = []
     with open(data3,'rb') as csvfile:
@@ -124,18 +130,24 @@ def test3():
     #
     # # km = KMeans(16).fit(data)
     #
-    # clusterer = KMeans(n_clusters)
-    # cluster_labels = clusterer.fit_predict(data)
-    # #
-    # print cluster_labels
-    # print silhouette_score(data, cluster_labels, metric='euclidean')
-    # showChartKmeans(clusterer, False, data, n_clusters)
+    if isKmeans == True:
+        clusterer = KMeans(n_clusters)
+        cluster_labels = clusterer.fit_predict(data)
+        #
+        print cluster_labels
+        print silhouette_score(data, cluster_labels, metric='euclidean')
+        showChartKmeans(clusterer, False, data, n_clusters)
 
-    ward = AgglomerativeClustering(n_clusters, affinity='euclidean', linkage='ward')
-    ward.fit(data)
+        compareResult(cluster_labels)
+    else:
+        ward = AgglomerativeClustering(n_clusters, affinity='euclidean', linkage='ward')
+        ward.fit(data)
 
-    print silhouette_score(data, ward.labels_, metric='euclidean')
-    showChartHierarchical(ward, False, data, n_clusters)
+        print ward.labels_
+        print silhouette_score(data, ward.labels_, metric='euclidean')
+        showChartHierarchical(ward, False, data, n_clusters)
+
+        compareResult(ward.labels_)
 
 def split_data(data,train_split=0.8):
     data = np.array(data)
@@ -203,6 +215,19 @@ def plot_hierarchical(axis, data, labels, k, alpha=None):
         if alpha:
             pyplot.setp(dots,alpha=alpha)
             pyplot.setp(xs,alpha=alpha)
+
+def compareResult(result):
+    result.sort()
+    data = []
+    with open(data3result,'rb') as csvfile:
+        for line in csvfile:
+            if len(line.strip()) > 0:
+                data.append(int(line) - 1)
+    data = np.array(data)
+    # print data
+    # print result
+
+    print precision_recall_fscore_support(data, result, average='micro')
 
 if __name__ == '__main__':
     main()
