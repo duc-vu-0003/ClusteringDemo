@@ -57,20 +57,15 @@ def kmeans_predict(data,kmeans,filename=None):
         plot_clusters(axis,data,len(centroids),labels,centroids)
 
         axis.set_title('KMeans Predictions (k=%d)' % len(centroids))
-        axis.set_xlabel('Eruption Time (mins)')
-        axis.set_ylabel('Time Between Eruptions (mins)')
-        # axis.set_xlim([xmin,xmax])
-        # axis.set_ylim([ymin,ymax])
+        axis.set_xlabel('X')
+        axis.set_ylabel('Y')
 
         index += 1
-
 
     if filename is not None:
         fig.savefig(filename)
     else:
         pyplot.show()
-
-
 
 def plot_kmeans(data,ks=(10,),filename=None,suppress_output=False):
     data = np.array(data)
@@ -94,20 +89,13 @@ def plot_kmeans(data,ks=(10,),filename=None,suppress_output=False):
         centroids = kmeans.cluster_centers_
         kmeans_models.append(kmeans)
 
-        print labels
-        print "....."
-        print centroids
-
         # now plot the clusters
         axis = get_axis(axes,index,number_of_figures,num_rows,num_cols)
         plot_clusters(axis,data,k,labels,centroids)
 
         axis.set_title('Number of Clusters=%d' % k)
-        axis.set_xlabel('Eruption Time (mins)')
-        axis.set_ylabel('Time Between Eruptions (mins)')
-        # axis.set_xlim([xmin,xmax])
-        # axis.set_ylim([ymin,ymax])
-
+        axis.set_xlabel('X')
+        axis.set_ylabel('Y')
         index += 1
 
     if suppress_output == False:
