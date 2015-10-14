@@ -1,24 +1,24 @@
 Exercise 1:
 10 clusters:
-[7 7 7 ..., 8 5 5]
-Silhouette: 0.459785656666
+[3 3 3 ..., 8 1 1]
+Silhouette: 0.460704780625
 
 50 clusters:
-[ 8  8  8 ..., 46 35 35]
-Silhouette: 0.56728106591
+[ 0  0  0 ...,  9 28 28]
+Silhouette: 0.541042140168
 
 100 clusters:
-[59 59 59 ..., 83 65 13]
-Silhouette: 0.52954382126
+[ 7  7  7 ..., 69 37 19]
+Silhouette: 0.514889676192
 
 Exercise 2:
 Kmeans:
-[ 4  4  4 ..., 12 12 12]
-Silhouette: 0.711278614093
+[10 10 10 ...,  1  1  1]
+Silhouette: 0.640833472022
 
 Hierarchical:
-[12 12 12 ...,  2  2  2]
-Silhouette: 0.708545083931
+[ 4  4  4 ..., 11 11 11]
+Silhouette: 0.624539105709
 
 Exercise 3:
 Kmeans:
