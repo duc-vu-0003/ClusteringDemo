@@ -12,8 +12,11 @@ from sklearn.metrics import precision_recall_fscore_support
 
 data = 'data'
 data1 = 'data/cluster1.csv'
+data1Test = 'data/cluster1.test.csv'
 data2 = 'data/cluster2.csv'
+data2Test = 'data/cluster2.test.csv'
 data3 = 'data/cluster3.csv'
+data3Test = 'data/cluster3.test.csv'
 data3result = 'data/cluster3result.csv'
 fileName = 'result/figure'
 
@@ -45,22 +48,32 @@ def main():
             test3(False)
 
 def test1():
-    n_clusters = 10
+    n_clusters = 100
     data = []
-    with open(data1,'rb') as csvfile:
+
+    with open(data1Test,'rb') as csvfile:
+        #skip header
+        _ = csvfile.next()
         for line in csvfile:
-            line = line.replace("\n", "")
-            temp = line.split('    ')
-            key1 = ''
-            key2 = ''
+            line = line.strip()
+            if len(line) > 0:
+                value1, value2 = line.split(',')
+                data.append([value1, value2])
 
-            key1 = temp[1]
-
-            if len(temp[2]) > 0:
-                key2 = temp[2]
-            else:
-                key2 = temp[3]
-            data.append([key1, key2])
+    # with open(data1,'rb') as csvfile:
+    #     for line in csvfile:
+    #         line = line.replace("\n", "")
+    #         temp = line.split('    ')
+    #         key1 = ''
+    #         key2 = ''
+    #
+    #         key1 = temp[1]
+    #
+    #         if len(temp[2]) > 0:
+    #             key2 = temp[2]
+    #         else:
+    #             key2 = temp[3]
+    #         data.append([key1, key2])
 
     #convert to numpy array
     data = np.array(data)
@@ -80,20 +93,30 @@ def test1():
 def test2(isKmeans):
     n_clusters = 15
     data = []
-    with open(data2,'rb') as csvfile:
+
+    with open(data2Test,'rb') as csvfile:
+        #skip header
+        _ = csvfile.next()
         for line in csvfile:
-            line = line.replace("\n", "")
-            temp = line.split('    ')
-            key1 = ''
-            key2 = ''
+            line = line.strip()
+            if len(line) > 0:
+                value1, value2 = line.split(',')
+                data.append([value1, value2])
 
-            key1 = temp[1]
-
-            if len(temp[2]) > 0:
-                key2 = temp[2]
-            else:
-                key2 = temp[3]
-            data.append([key1, key2])
+    # with open(data2,'rb') as csvfile:
+    #     for line in csvfile:
+    #         line = line.replace("\n", "")
+    #         temp = line.split('    ')
+    #         key1 = ''
+    #         key2 = ''
+    #
+    #         key1 = temp[1]
+    #
+    #         if len(temp[2]) > 0:
+    #             key2 = temp[2]
+    #         else:
+    #             key2 = temp[3]
+    #         data.append([key1, key2])
 
     #convert to numpy array
     data = np.array(data)
@@ -115,15 +138,24 @@ def test2(isKmeans):
 def test3(isKmeans):
     n_clusters = 16
     data = []
-    with open(data3,'rb') as csvfile:
+
+    with open(data3Test,'rb') as csvfile:
+        #skip header
+        _ = csvfile.next()
         for line in csvfile:
-            line = line.replace("\n", "")
-            temp = line.split('   ')
-            temp1 = []
-            for item in temp:
-                if len(item.strip()) > 0:
-                    temp1.append(item.strip())
-            data.append(temp1)
+            line = line.strip()
+            if len(line) > 0:
+                data.append(line.split(','))
+
+    # with open(data3,'rb') as csvfile:
+    #     for line in csvfile:
+    #         line = line.replace("\n", "")
+    #         temp = line.split('   ')
+    #         temp1 = []
+    #         for item in temp:
+    #             if len(item.strip()) > 0:
+    #                 temp1.append(item.strip())
+    #         data.append(temp1)
 
     # convert to numpy array
     data = np.array(data)
