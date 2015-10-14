@@ -18,4 +18,3 @@ Choose one of the following:
 5 - Exercise 3 - Hierarchical
 0 - Exit
 **************************************
-Enter your options: 
