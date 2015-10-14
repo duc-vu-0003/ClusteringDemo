@@ -15,6 +15,7 @@ data1 = 'data/cluster1.csv'
 data2 = 'data/cluster2.csv'
 data3 = 'data/cluster3.csv'
 data3result = 'data/cluster3result.csv'
+fileName = 'result/figure'
 
 def main():
     oper = -1
@@ -169,7 +170,7 @@ def showChartKmeans(km, need_save, data, k):
     axis.set_ylabel('Y')
 
     if need_save == True:
-        fig.savefig(filename)
+        fig.savefig(fileName + str(k))
     else:
         pyplot.show()
 
@@ -186,7 +187,7 @@ def showChartHierarchical(km, need_save, data, k):
     axis.set_ylabel('Y')
 
     if need_save == True:
-        fig.savefig(filename)
+        fig.savefig(fileName + str(k))
     else:
         pyplot.show()
 
@@ -208,13 +209,10 @@ def plot_kmeans(axis,data,k,labels,centroids,alpha=None):
             pyplot.setp(dots,alpha=alpha)
             pyplot.setp(xs,alpha=alpha)
 
-def plot_hierarchical(axis, data, labels, k, alpha=None):
+def plot_hierarchical(axis, data, labels, k):
     for i in range(k):
         ds = data[np.where(labels==i)]
         dots = axis.plot(ds[:,0],ds[:,1],'o')
-        if alpha:
-            pyplot.setp(dots,alpha=alpha)
-            pyplot.setp(xs,alpha=alpha)
 
 def compareResult(result):
     result.sort()
